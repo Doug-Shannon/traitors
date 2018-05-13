@@ -1,0 +1,7 @@
+<button mat-button (click)='logout()'>logout</button>
+<div class="grid-container">
+  <div *ngIf="user | async as userState">
+    <h1 class="mat-h1">{{userState.user.player.username}}'s Dashboard</h1>
+    <app-game-dashboard [games]="games" [user]="userState.user"></app-game-dashboard>
+  </div>
+</div>

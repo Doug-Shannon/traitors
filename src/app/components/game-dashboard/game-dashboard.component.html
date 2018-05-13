@@ -1,0 +1,7 @@
+<div *ngIf="games | async as gamesState">
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile *ngFor="let game of gamesState.games" [colspan]="1" [rowspan]="1">
+      <app-game-card [game]="game" [user]="user"></app-game-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
