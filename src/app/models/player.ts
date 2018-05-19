@@ -1,15 +1,19 @@
 export interface IPlayer {
     id: string;
     username: string;
-    ref: string;
+    playersRef?: string;
     email: string;
 }
 
 export class Player implements IPlayer {
-    public ref: string;
-
-    constructor(public id: string, public username: string, public email: string) {
-        this.ref = `players\${uid}`;
+    constructor(
+        public id: string,
+        public username: string,
+        public email: string,
+        public playersRef: string = `players/${id}`) {
     }
 
+    public static FromPlayer(p: Player) {
+        return new Player(p.id, p.username, p.email);
+    }
 }

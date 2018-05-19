@@ -1,0 +1,8 @@
+.add-game-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .add-game-container > * {
+    width: 100%;
+  }

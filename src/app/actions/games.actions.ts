@@ -1,13 +1,14 @@
 import { Action } from '@ngrx/store';
-import { Game } from '../models';
+import { Game, CreateGameStatus } from '../models';
 
 export enum GamesActionTypes {
   GET_GAMES = '[Games] Get',
   GET_GAMES_SUCCESS = '[Games] Get success',
   GET_GAMES_FAILURE = '[Games] Get failure',
-  CREATE_GAME = '[Games] Create',
-  CREATE_GAME_SUCCESS = '[Games] Create success',
-  CREATE_GAME_FAILURE = '[Games] Create failure',
+  CREATE_GAME_MODE = '[Games] Create mode',
+  SAVE_NEW_GAME = '[Games] Save new',
+  SAVE_NEW_GAME_SUCCESS = '[Games] Save new success',
+  SAVE_NEW_GAME_FAILURE = '[Games] Save new failure',
   DELETE_GAME = '[Games] Delete',
   DELETE_GAME_SUCCESS = '[Games] Delete success',
   DELETE_GAME_FAILURE = '[Games] Delete failure',
@@ -24,16 +25,22 @@ export class GetGamesSuccess implements Action {
   constructor(public payload: Game[]) { }
 }
 
-export class CreateGame implements Action {
-  public readonly type = GamesActionTypes.CREATE_GAME;
+export class SaveNewGame implements Action {
+  public readonly type = GamesActionTypes.SAVE_NEW_GAME;
 
   constructor(public payload: Game) { }
 }
 
-export class CreateGameSuccess implements Action {
-  public readonly type = GamesActionTypes.CREATE_GAME_SUCCESS;
+export class SaveNewGameSuccess implements Action {
+  public readonly type = GamesActionTypes.SAVE_NEW_GAME_SUCCESS;
 
   constructor(public payload: Game) { }
+}
+
+export class CreateGameMode implements Action {
+  public readonly type = GamesActionTypes.CREATE_GAME_MODE;
+
+  constructor(public payload: CreateGameStatus) { }
 }
 
 export class DeleteGame implements Action {
@@ -54,4 +61,11 @@ export class GamesError implements Action {
   constructor(public payload: string) { }
 }
 
-export type GamesActions = GetGames | GetGamesSuccess | CreateGame | CreateGameSuccess | DeleteGame | DeleteGameSuccess | GamesError;
+export type GamesActions = GetGames |
+                          GetGamesSuccess |
+                          CreateGameMode |
+                          SaveNewGame |
+                          SaveNewGameSuccess |
+                          DeleteGame |
+                          DeleteGameSuccess |
+                          GamesError;

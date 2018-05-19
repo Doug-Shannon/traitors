@@ -1,0 +1,9 @@
+<div>
+  <form (ngSubmit)="newGameSubmit()" [formGroup]="createGameForm">
+    <mat-form-field>
+      <mat-label>Game name</mat-label>
+      <input matInput formControlName="gameName" />
+    </mat-form-field> &nbsp;
+    <button type="submit" mat-raised-button>Submit</button>
+  </form>
+</div>

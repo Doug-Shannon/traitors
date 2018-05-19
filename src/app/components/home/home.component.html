@@ -1,7 +1,16 @@
-<button mat-button (click)='logout()'>logout</button>
-<div class="grid-container">
-  <div *ngIf="user | async as userState">
-    <h1 class="mat-h1">{{userState.user.player.username}}'s Dashboard</h1>
-    <app-game-dashboard [games]="games" [user]="userState.user"></app-game-dashboard>
+<button mat-raised-button (click)='logout()'>logout</button>
+<div *ngIf="user | async as userState">
+  <div *ngIf="games | async as gamesState">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div>
+        <h1 class="mat-h1">{{userState.user.player.username}}'s Games</h1>
+      </div>
+      <div>
+        {{gamesState.createstatus | json}}
+        <button *ngIf="gamesState.createstatus == createGameStatus.NONE" (click)="newGame()" mat-raised-button color="accent">New Game</button>
+        <app-new-game *ngIf="gamesState.createstatus == createGameStatus.NEW" (gameCreated)="gameCreated($event)"></app-new-game>
+      </div>
+    </div>
+    <app-game-dashboard [games]="gamesState.games" [user]="userState.user"></app-game-dashboard>
   </div>
 </div>

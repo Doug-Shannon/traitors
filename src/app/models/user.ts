@@ -6,7 +6,6 @@ export interface IUser {
 }
 
 export class User implements IUser {
-    public player = null;
+    public player: Player = null;
     constructor(public uid: string) {}
-
 }

@@ -9,11 +9,15 @@ import { Observable } from 'rxjs';
 })
 export class GameDashboardComponent implements OnInit {
   @Input() user: User;
-  @Input() games: Observable<Game[]>;
+  @Input() games: Game[];
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  gameTrackBy(index, game) {
+    return game.id;
   }
 
 }
