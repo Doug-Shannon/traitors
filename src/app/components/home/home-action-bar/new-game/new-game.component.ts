@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../reducers';
-import * as GamesActions from '../../actions/games.actions';
-import { Game } from '../../models';
+import { AppState } from '../../../../reducers';
+import * as GamesActions from '../../../../actions/games.actions';
+import { Game } from '../../../../models';
 
 @Component({
   selector: 'app-new-game',
@@ -12,6 +12,7 @@ import { Game } from '../../models';
 })
 export class NewGameComponent implements OnInit {
   @Output() gameCreated = new EventEmitter<Game>();
+  @Output() cancel = new EventEmitter();
   public createGameForm: FormGroup;
   constructor(private fb: FormBuilder) { }
 
@@ -19,6 +20,10 @@ export class NewGameComponent implements OnInit {
     this.createGameForm = this.fb.group({
       'gameName' : [null, Validators.required]
     });
+  }
+
+  cancelNewGame() {
+    this.cancel.emit();
   }
 
   newGameSubmit() {

@@ -1,0 +1,10 @@
+<div>
+  <form (ngSubmit)="joinGameSubmit()" [formGroup]="joinGameForm">
+    <mat-form-field>
+      <mat-label>Room code</mat-label>
+      <input matInput formControlName="roomCode" />
+    </mat-form-field> &nbsp;
+    <button type="submit" mat-raised-button color="primary">Submit</button>
+    <button (click)="cancelJoin()" mat-raised-button>Cancel</button>
+  </form>
+</div>

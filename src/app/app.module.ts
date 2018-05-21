@@ -15,7 +15,7 @@ import { StoreModule, Store } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 // Reducers
-import { reducers, metaReducers, AppState} from './reducers';
+import { reducers, metaReducers, AppState } from './reducers';
 import * as AuthActions from './actions/auth.actions';
 
 // Effects
@@ -28,9 +28,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { SplashComponent } from './components/splash/splash.component';
-import { GameCardComponent } from './components/game-card/game-card.component';
-import { GameDashboardComponent } from './components/game-dashboard/game-dashboard.component';
-import { NewGameComponent } from './components/new-game/new-game.component';
+import { GameCardComponent } from './components/home/game-dashboard/game-card/game-card.component';
+import { GameDashboardComponent } from './components/home/game-dashboard/game-dashboard.component';
+import { NewGameComponent } from './components/home/home-action-bar/new-game/new-game.component';
+import { JoinGameComponent } from './components/home/home-action-bar/join-game/join-game.component';
+import { HomeActionBarComponent } from './components/home/home-action-bar/home-action-bar.component';
 
 // Guards
 import { AuthGuard } from './guards/auth.guard';
@@ -40,7 +42,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
-import { MatGridListModule, MatMenuModule, MatIconModule, MatFormField } from '@angular/material';
+import {
+  MatGridListModule,
+  MatMenuModule,
+  MatIconModule,
+  MatFormField,
+  MatChipsModule,
+  MatToolbarModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -51,6 +61,8 @@ import { MatGridListModule, MatMenuModule, MatIconModule, MatFormField } from '@
     GameCardComponent,
     GameDashboardComponent,
     NewGameComponent,
+    JoinGameComponent,
+    HomeActionBarComponent
   ],
   imports: [
     // ANGULAR
@@ -60,7 +72,7 @@ import { MatGridListModule, MatMenuModule, MatIconModule, MatFormField } from '@
     ReactiveFormsModule,
     FormsModule,
     // NGRX
-    StoreModule.forRoot(reducers, {metaReducers}),
+    StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AuthEffects, GamesEffects]),
     // FIREBASE
@@ -74,7 +86,10 @@ import { MatGridListModule, MatMenuModule, MatIconModule, MatFormField } from '@
     MatMenuModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthGuard,

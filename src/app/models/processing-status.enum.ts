@@ -1,6 +1,6 @@
-export enum CreateGameStatus {
+export enum ProcessingStatus {
     NONE = 'NONE',
     NEW = 'NEW',
-    SAVING = 'SAVING',
+    PROCESSING = 'SAVING',
     ERROR = 'ERROR'
 }

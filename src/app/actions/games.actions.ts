@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Game, CreateGameStatus } from '../models';
+import { Game, ProcessingStatus } from '../models';
 
 export enum GamesActionTypes {
   GET_GAMES = '[Games] Get',
@@ -12,7 +12,12 @@ export enum GamesActionTypes {
   DELETE_GAME = '[Games] Delete',
   DELETE_GAME_SUCCESS = '[Games] Delete success',
   DELETE_GAME_FAILURE = '[Games] Delete failure',
-  GAMES_ERROR = '[Games] Error'
+  GAMES_ERROR = '[Games] Error',
+  JOIN_GAME_MODE = '[Games] Join mode',
+  JOIN_GAME= '[Games] Join',
+  JOIN_GAME_SUCCESS = '[Games] Join success',
+  JOIN_GAME_FAILURE = '[Games] Join failure',
+
 }
 
 export class GetGames implements Action {
@@ -37,10 +42,28 @@ export class SaveNewGameSuccess implements Action {
   constructor(public payload: Game) { }
 }
 
+export class JoinGame implements Action {
+  public readonly type = GamesActionTypes.JOIN_GAME;
+
+  constructor(public payload: string) { }
+}
+
+export class JoinGameSuccess implements Action {
+  public readonly type = GamesActionTypes.JOIN_GAME_SUCCESS;
+
+  constructor(public payload: Game) { }
+}
+
 export class CreateGameMode implements Action {
   public readonly type = GamesActionTypes.CREATE_GAME_MODE;
 
-  constructor(public payload: CreateGameStatus) { }
+  constructor(public payload: ProcessingStatus) { }
+}
+
+export class JoinGameMode implements Action {
+  public readonly type = GamesActionTypes.JOIN_GAME_MODE;
+
+  constructor(public payload: ProcessingStatus) { }
 }
 
 export class DeleteGame implements Action {
@@ -68,4 +91,7 @@ export type GamesActions = GetGames |
                           SaveNewGameSuccess |
                           DeleteGame |
                           DeleteGameSuccess |
-                          GamesError;
+                          GamesError |
+                          JoinGame |
+                          JoinGameMode |
+                          JoinGameSuccess;

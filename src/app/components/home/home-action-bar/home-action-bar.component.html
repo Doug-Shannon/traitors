@@ -1,0 +1,13 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div>
+    <button [disabled]="gamesState.joinstatus != processingStatus.NONE || gamesState.createstatus != processingStatus.NONE"  (click)="newGame()" mat-raised-button color="accent">New Game</button>
+    <button [disabled]="gamesState.createstatus != processingStatus.NONE || gamesState.joinstatus != processingStatus.NONE" (click)="joinGame()" mat-raised-button color="accent">Join Game</button>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div>
+    <mat-progress-spinner *ngIf="gamesState.joinstatus == processingStatus.PROCESSING || gamesState.createstatus == processingStatus.PROCESSING" mode="indeterminate"></mat-progress-spinner>
+    <app-join-game *ngIf="gamesState.joinstatus == processingStatus.NEW" (roomCodeEntered)="roomCodeEntered($event)" (cancel)="joinGameCancelled()"></app-join-game>
+    <app-new-game *ngIf="gamesState.createstatus == processingStatus.NEW" (gameCreated)="gameCreated($event)" (cancel)="newGameCancelled()"></app-new-game>
+  </div>
+</div>

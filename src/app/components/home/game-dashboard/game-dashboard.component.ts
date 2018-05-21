@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User, Game } from '../../models';
+import { User, Game } from '../../../models';
 import { Observable } from 'rxjs';
 
 @Component({

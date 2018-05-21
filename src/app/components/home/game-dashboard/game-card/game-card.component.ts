@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Game, User } from '../../models';
+import { Game, User } from '../../../../models';
 
 @Component({
   selector: 'app-game-card',
@@ -9,10 +9,12 @@ import { Game, User } from '../../models';
 export class GameCardComponent implements OnInit {
   @Input() game: Game;
   @Input() user: User;
+  public userIsOwner = false;
 
   constructor() { }
 
   ngOnInit() {
+    this.userIsOwner = this.user.uid === this.game.owner.id;
   }
 
 }

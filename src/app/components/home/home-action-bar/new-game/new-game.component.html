@@ -4,6 +4,7 @@
       <mat-label>Game name</mat-label>
       <input matInput formControlName="gameName" />
     </mat-form-field> &nbsp;
-    <button type="submit" mat-raised-button>Submit</button>
+    <button type="submit" mat-raised-button color="primary">Submit</button>
+    <button (click)="cancelNewGame()" mat-raised-button>Cancel</button>
   </form>
 </div>
