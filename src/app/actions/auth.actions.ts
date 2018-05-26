@@ -4,13 +4,13 @@ import { UrlSegment } from '@angular/router';
 
 export enum AuthActionTypes {
   GET_USER = '[Auth] Get user',
-  USER_AUTHENTICATED = '[Auth] User authenticated',
-  USER_NOT_AUTHENTICATED = '[Auth] User not authenticated',
+  AUTHENTICATED = '[Auth] User authenticated',
+  NOT_AUTHENTICATED = '[Auth] User not authenticated',
   GET_PLAYER_SUCCESS = '[Auth] Get player success',
   LOGIN = '[Auth] Login',
   LOGIN_FAILURE = '[Auth] Login failure',
   LOGOUT = '[Auth] Logout',
-  AUTH_ERROR = '[Auth] Error',
+  ERROR = '[Auth] Error',
   NOT_AUTHENTICATED_REDIRECT = '[Auth] Not authenticated redirect'
 }
 
@@ -18,14 +18,14 @@ export class GetUser implements Action {
   readonly type = AuthActionTypes.GET_USER;
 }
 
-export class UserAuthenticated implements Action {
-  readonly type = AuthActionTypes.USER_AUTHENTICATED;
+export class Authenticated implements Action {
+  readonly type = AuthActionTypes.AUTHENTICATED;
 
   constructor(public payload: User) {}
 }
 
-export class UserNotAuthenticated implements Action {
-  readonly type = AuthActionTypes.USER_NOT_AUTHENTICATED;
+export class NotAuthenticated implements Action {
+  readonly type = AuthActionTypes.NOT_AUTHENTICATED;
 }
 
 export class Login implements Action {
@@ -40,8 +40,8 @@ export class Logout implements Action {
   readonly type = AuthActionTypes.LOGOUT;
 }
 
-export class AuthError implements Action {
-  readonly type = AuthActionTypes.AUTH_ERROR;
+export class Error implements Action {
+  readonly type = AuthActionTypes.ERROR;
 
   constructor(public payload) {}
 }
@@ -58,12 +58,13 @@ export class GetPlayerSuccess implements Action {
   constructor(public payload: Player) {}
 }
 
-export type AuthActions = GetUser |
-                          UserAuthenticated |
-                          UserNotAuthenticated |
-                          Login |
-                          LoginFailure |
-                          Logout |
-                          NotAuthenticatedRedirect |
-                          GetPlayerSuccess |
-                          AuthError;
+export type AuthActions =
+  | GetUser
+  | Authenticated
+  | NotAuthenticated
+  | Login
+  | LoginFailure
+  | Logout
+  | NotAuthenticatedRedirect
+  | GetPlayerSuccess
+  | Error;

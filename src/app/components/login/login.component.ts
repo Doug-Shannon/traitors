@@ -5,6 +5,7 @@ import * as AuthActions from '../../actions/auth.actions';
 import { AuthState } from '../../reducers/auth.reducer';
 import { filter, switchMap, take } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Record } from 'immutable';
 
 @Component({
   selector: 'app-login',
@@ -12,24 +13,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-
-  constructor(private store: Store<AppState>, private router: Router) { }
+  constructor(private store: Store<AppState>, private router: Router) {}
   private auth;
   private homeRoute = ['home'];
 
   ngOnInit() {
-    this.auth = this.store.select('auth').pipe(
-      filter((auth: AuthState) => !auth.loading && !!auth.user.uid),
-      take(1)
-    ).subscribe((auth: AuthState) => {
-      switch (!!auth.redirectUrlSegment) {
-        case true:
-          this.router.navigate(auth.redirectUrlSegment);
-          break;
-        default:
-          this.router.navigate(this.homeRoute);
-      }
-    });
+    this.auth = this.store
+      .select('auth')
+      .pipe(filter((auth: AuthState) => !auth.loading && !!auth.user.uid), take(1))
+      .subscribe((auth: AuthState) => {
+        switch (!!auth.redirectUrlSegment) {
+          case true:
+            this.router.navigate(auth.redirectUrlSegment);
+            break;
+          default:
+            this.router.navigate(this.homeRoute);
+        }
+      });
   }
 
   ngOnDestroy() {
@@ -39,5 +39,4 @@ export class LoginComponent implements OnInit, OnDestroy {
   login() {
     this.store.dispatch(new AuthActions.Login());
   }
-
 }

@@ -6,7 +6,9 @@ const rxjs_1 = require("rxjs");
 const operators_1 = require("rxjs/operators");
 // import * as models from "../../src/app/models";
 const availableLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-admin.initializeApp();
+if (!admin.apps.length) {
+    admin.initializeApp();
+}
 const firestoredb = admin.firestore();
 module.exports = functions.firestore
     .document('games/{gameId}')
@@ -16,8 +18,6 @@ module.exports = functions.firestore
         const data = results.docs.map(doc => doc.data());
         let joinCode = '';
         let counter = 0;
-        // tslint:disable:no-console
-        console.log(data);
         do {
             joinCode = '';
             for (let index = 0; index < 8; index++) {
@@ -36,7 +36,6 @@ module.exports = functions.firestore
             .collection('games')
             .doc(snap.id)
             .update({ gameJoinCode: joinCode })).pipe(operators_1.map(() => {
-            console.log(`saving with roomcode ${joinCode}`);
             return joinCode;
         }));
     }), operators_1.flatMap(joinCode => {
@@ -44,7 +43,6 @@ module.exports = functions.firestore
             .collection('gameJoinCodes')
             .doc()
             .set({ code: joinCode, gameRef: snap.id })).pipe(operators_1.map(() => {
-            console.log(`saving to gameJoinCodes`);
             return joinCode;
         }));
     }))

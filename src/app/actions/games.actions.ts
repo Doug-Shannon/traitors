@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
 import { Game, ProcessingStatus } from '../models';
 
+import { List } from 'immutable';
+
 export enum GamesActionTypes {
   GET_GAMES = '[Games] Get',
   GET_GAMES_SUCCESS = '[Games] Get success',
@@ -14,10 +16,27 @@ export enum GamesActionTypes {
   DELETE_GAME_FAILURE = '[Games] Delete failure',
   GAMES_ERROR = '[Games] Error',
   JOIN_GAME_MODE = '[Games] Join mode',
-  JOIN_GAME= '[Games] Join',
+  JOIN_GAME = '[Games] Join',
   JOIN_GAME_SUCCESS = '[Games] Join success',
   JOIN_GAME_FAILURE = '[Games] Join failure',
+  ESTABLISH_GAMES_FIRESTORE_LINK = '[Games firestore] Establish link',
+  FIRESTORE_GAMES_MODIFIED = '[Games firestore] Game modified',
+  FIRESTORE_GAMES_ADDED = '[Games firestore] Game added'
+}
+export class EstablishGamesFirestoreLink implements Action {
+  public readonly type = GamesActionTypes.ESTABLISH_GAMES_FIRESTORE_LINK;
+}
 
+export class FirestoreGamesModified implements Action {
+  public readonly type = GamesActionTypes.FIRESTORE_GAMES_MODIFIED;
+
+  constructor(public payload: Game) {}
+}
+
+export class FirestoreGamesAdded implements Action {
+  public readonly type = GamesActionTypes.FIRESTORE_GAMES_ADDED;
+
+  constructor(public payload: Game) {}
 }
 
 export class GetGames implements Action {
@@ -27,71 +46,75 @@ export class GetGames implements Action {
 export class GetGamesSuccess implements Action {
   public readonly type = GamesActionTypes.GET_GAMES_SUCCESS;
 
-  constructor(public payload: Game[]) { }
+  constructor(public payload: List<Game>) {}
 }
 
 export class SaveNewGame implements Action {
   public readonly type = GamesActionTypes.SAVE_NEW_GAME;
 
-  constructor(public payload: Game) { }
+  constructor(public payload: Game) {}
 }
 
 export class SaveNewGameSuccess implements Action {
   public readonly type = GamesActionTypes.SAVE_NEW_GAME_SUCCESS;
 
-  constructor(public payload: Game) { }
+  constructor(public payload: string) {}
 }
 
 export class JoinGame implements Action {
   public readonly type = GamesActionTypes.JOIN_GAME;
 
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export class JoinGameSuccess implements Action {
   public readonly type = GamesActionTypes.JOIN_GAME_SUCCESS;
 
-  constructor(public payload: Game) { }
+  constructor(public payload: string) {}
 }
 
 export class CreateGameMode implements Action {
   public readonly type = GamesActionTypes.CREATE_GAME_MODE;
 
-  constructor(public payload: ProcessingStatus) { }
+  constructor(public payload: ProcessingStatus) {}
 }
 
 export class JoinGameMode implements Action {
   public readonly type = GamesActionTypes.JOIN_GAME_MODE;
 
-  constructor(public payload: ProcessingStatus) { }
+  constructor(public payload: ProcessingStatus) {}
 }
 
 export class DeleteGame implements Action {
   public readonly type = GamesActionTypes.DELETE_GAME;
 
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export class DeleteGameSuccess implements Action {
   public readonly type = GamesActionTypes.DELETE_GAME_SUCCESS;
 
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 
 export class GamesError implements Action {
   public readonly type = GamesActionTypes.GAMES_ERROR;
 
-  constructor(public payload: string) { }
+  constructor(public payload: Error) {}
 }
 
-export type GamesActions = GetGames |
-                          GetGamesSuccess |
-                          CreateGameMode |
-                          SaveNewGame |
-                          SaveNewGameSuccess |
-                          DeleteGame |
-                          DeleteGameSuccess |
-                          GamesError |
-                          JoinGame |
-                          JoinGameMode |
-                          JoinGameSuccess;
+export type GamesActions =
+  | GetGames
+  | GetGamesSuccess
+  | CreateGameMode
+  | SaveNewGame
+  | SaveNewGameSuccess
+  | DeleteGame
+  | DeleteGameSuccess
+  | GamesError
+  | JoinGame
+  | JoinGameMode
+  | JoinGameSuccess
+  | EstablishGamesFirestoreLink
+  | FirestoreGamesAdded
+  | FirestoreGamesModified;

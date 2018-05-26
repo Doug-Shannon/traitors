@@ -14,11 +14,11 @@ export class NewGameComponent implements OnInit {
   @Output() gameCreated = new EventEmitter<Game>();
   @Output() cancel = new EventEmitter();
   public createGameForm: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     this.createGameForm = this.fb.group({
-      'gameName' : [null, Validators.required]
+      gameName: [null, Validators.required]
     });
   }
 
@@ -28,8 +28,7 @@ export class NewGameComponent implements OnInit {
 
   newGameSubmit() {
     if (this.createGameForm.valid) {
-      this.gameCreated.emit(new Game(this.createGameForm.value.gameName));
+      this.gameCreated.emit(new Game({ name: this.createGameForm.value.gameName }));
     }
   }
-
 }

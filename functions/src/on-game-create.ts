@@ -5,7 +5,9 @@ import { map, flatMap } from 'rxjs/operators';
 // import * as models from "../../src/app/models";
 
 const availableLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-admin.initializeApp();
+if (!admin.apps.length) {
+  admin.initializeApp();
+}
 const firestoredb: FirebaseFirestore.Firestore = admin.firestore();
 
 module.exports = functions.firestore

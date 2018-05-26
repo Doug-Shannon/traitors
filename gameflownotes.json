@@ -1,0 +1,36 @@
+{
+  "players": [
+    {
+      "email": "string",
+      "id": "string",
+      "playersRef": "string",
+      "username": "string",
+      "role": "'good guy' || 'bad guy'"
+    }
+  ],
+  "rounds": [
+    {
+      "currentAttempt": "attemptNumber",
+      "attempts": {
+        "attemptNumber": {
+          "attempt": "number", // number
+          "leader": "player.id", // string
+          "status":
+            "'team selection' --> 'team confirmation' --> ( 'team confirmation failed' || 'mission' --> ( 'mission success' || 'mission failed' ) )", // outcome.enum
+          "selected team": [
+            "player.id" // string
+          ],
+          "teamSelectionVotes": {
+            "player.id": "'yes' || 'no'" // team-vote.enum
+          },
+          "missionVotes": {
+            "selectedTeam.player.id": "'pass' || 'fail'" // mission-vote.enum
+          }
+          //   "outcome": "null || 'team confirmation failed' || 'mission success' || 'mission failed'" // outcome.enum
+        } // attempt
+      } // attempt []
+      //   "outcome": "null || 'mission success' || 'mission failed' || '5 failed'" // outcome.enum
+    } // round
+  ] // round array
+  //   "outcome": "null || 'good guys win' || 'bad guys win'" // outcome.enum
+}

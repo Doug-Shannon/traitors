@@ -11,17 +11,19 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireFunctionsModule } from 'angularfire2/functions';
 import { StoreModule, Store } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 // Reducers
 import { reducers, metaReducers, AppState } from './reducers';
 import * as AuthActions from './actions/auth.actions';
 
 // Effects
-import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './effects/auth.effects';
 import { GamesEffects } from './effects/games.effects';
+import { GameStatusesEffects } from './effects/game-statuses.effects';
 
 // Components
 import { AppComponent } from './app.component';
@@ -74,11 +76,12 @@ import {
     // NGRX
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AuthEffects, GamesEffects]),
+    EffectsModule.forRoot([AuthEffects, GamesEffects, GameStatusesEffects]),
     // FIREBASE
     AngularFireAuthModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireFunctionsModule,
     // MATERIAL DESIGN
     MatCardModule,
     MatButtonModule,
@@ -91,10 +94,7 @@ import {
     MatToolbarModule,
     MatProgressSpinnerModule
   ],
-  providers: [
-    AuthGuard,
-    AngularFirestore
-  ],
+  providers: [AuthGuard, AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule {

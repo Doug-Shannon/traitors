@@ -1,19 +1,24 @@
+import { Record } from 'immutable';
+
 export interface IPlayer {
-    id: string;
-    username: string;
-    playersRef?: string;
-    email: string;
+  id: string;
+  username: string;
+  playersRef?: string;
+  email: string;
 }
 
-export class Player implements IPlayer {
-    constructor(
-        public id: string,
-        public username: string,
-        public email: string,
-        public playersRef: string = `players/${id}`) {
-    }
+const player = Record<IPlayer>({
+  id: '',
+  username: '',
+  playersRef: '',
+  email: ''
+});
 
-    public static FromPlayer(p: Player) {
-        return new Player(p.id, p.username, p.email);
+export class Player extends player implements IPlayer {
+  constructor(config: Partial<IPlayer>) {
+    if (!!config.id) {
+      config.playersRef = `players/${config.id}`;
     }
+    super(config);
+  }
 }

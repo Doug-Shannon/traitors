@@ -1,11 +1,18 @@
 import { Player } from './player';
+import { Record } from 'immutable';
 
 export interface IUser {
-    uid: string;
-    player?: Player;
+  uid: string;
+  player?: Player;
 }
 
-export class User implements IUser {
-    public player: Player = null;
-    constructor(public uid: string) {}
+const user = Record<IUser>({
+  uid: null,
+  player: null
+});
+
+export class User extends user implements IUser {
+  constructor(config: Partial<IUser>) {
+    super(config);
+  }
 }

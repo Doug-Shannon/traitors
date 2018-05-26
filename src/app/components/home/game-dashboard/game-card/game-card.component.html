@@ -1,4 +1,4 @@
-<mat-card class="dashboard-card">
+<mat-card *ngIf="game.processingStatus === processingStatus.NONE; else loading" class="dashboard-card">
   <mat-card-header>
     <mat-card-title>
       {{game.name}}
@@ -16,8 +16,14 @@
   </mat-card-header>
   <mat-card-content class="dashboard-card-content">
     <div>
-      Players:
+      <div *ngIf="game.gameJoinCode">Game Join Code: {{game.gameJoinCode}}</div>
+      <br /> Players:
       <p *ngFor="let player of game.players" [ngClass]="{ 'mat-body-2': player.id === user.uid, 'mat-body-1': player.id !== user.uid }">{{player.username}}</p>
     </div>
   </mat-card-content>
 </mat-card>
+
+<ng-template #loading>
+  <mat-spinner mode="indeterminate">
+  </mat-spinner>
+</ng-template>

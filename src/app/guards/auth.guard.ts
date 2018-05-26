@@ -10,26 +10,24 @@ import { filter, map, take } from 'rxjs/operators';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(
-    private store: Store<AppState>,
-    private router: Router) { }
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.store.select(s => s.auth)
-      .pipe(
-        filter((auth: AuthState) => !auth.loading),
-        take(1),
-        map((auth: AuthState) => {
-          if (!!auth.user.uid) {
-            return true;
-          } else {
-            const redirect = next.url.map(segment => segment.path);
-            this.store.dispatch(new Auth.NotAuthenticatedRedirect(redirect));
-            return false;
-          }
-        })
-      );
+    state: RouterStateSnapshot
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    return this.store.select(s => s.auth).pipe(
+      filter((auth: AuthState) => !auth.loading),
+      take(1),
+      map((auth: AuthState) => {
+        if (auth.user.get('uid', false)) {
+          return true;
+        } else {
+          const redirect = next.url.map(segment => segment.path);
+          this.store.dispatch(new Auth.NotAuthenticatedRedirect(redirect));
+          return false;
+        }
+      })
+    );
   }
 }
